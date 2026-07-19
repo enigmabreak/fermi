@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Fermi Studio Documentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a1a;
+      --text-muted: #555555;
+      --border: #e2e8f0;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1e1e1e;
+        --text: #cccccc;
+        --text-muted: #999999;
+        --border: #333333;
+      }
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin-top: 2em;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+      font-weight: 600;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 2em;
+    }
+
+    p,
+    li {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    code {
+      background: rgba(128, 128, 128, 0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: Consolas, monospace;
+    }
+
+    .risk-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .risk-table th,
+    .risk-table td {
+      border: 1px solid var(--border);
+      padding: 10px;
+      text-align: left;
+    }
+
+    .risk-table th {
+      background: rgba(128, 128, 128, 0.05);
+      color: var(--text);
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Fermi Studio Documentation</h1>
+  <p>Welcome to Fermi Studio, the secure coding environment designed for academic integrity.</p>
+
+  <h2>For Students: How to Use the Application</h2>
+  <ul>
+    <li><strong>Workspace Configuration:</strong> Upon launch, you must enter your 11-digit University Roll Number. This
+      initializes your secure session.</li>
+    <li><strong>Saving Work:</strong> Your C files are automatically saved to your secure workspace. To compile and run,
+      click the "Run" button in the bottom left corner.</li>
+    <li><strong>External Files:</strong> If you open a C file that was not handwritten in this session, the editor will
+      flag it with a reddish tab border and log the event.</li>
+    <li><strong>Focus Tracking:</strong> Do not minimize the window or switch to other applications (like web browsers).
+      The IDE actively tracks focus loss.</li>
+    <li><strong>USB Lockdown:</strong> Do not insert USB drives during a session. Doing so will immediately lock the
+      screen until the device is removed, and the incident will be logged.</li>
+    <li><strong>Paste Restrictions:</strong> Pasting code is strictly prohibited to prevent plagiarism.</li>
+  </ul>
+
+  <h2>For Professors: Supermode (Admin Mode)</h2>
+  <p>To assist students or debug issues without triggering integrity violations, invigilators can use the built-in
+    <strong>Supermode</strong>.
+  </p>
+  <ul>
+    <li><strong>Activation:</strong> Type <code>admin</code> into the Roll Number field during startup.</li>
+    <li><strong>Capabilities:</strong> Supermode automatically bypasses all paste restrictions and disables
+      window-switch monitoring, allowing you to freely copy/paste code and navigate the OS.</li>
+    <li><strong>Admin Panel:</strong> Entering Supermode automatically opens the Admin Panel, where you can view,
+      manage, and cryptographically verify all submitted student Integrity Reports.</li>
+    <li><strong>Stealth:</strong> To maintain clean logs, Supermode completely disables Integrity Report generation for
+      the session.</li>
+  </ul>
+
+  <h2>For Professors: Scoring & Integrity Systems</h2>
+  <p>Fermi Studio operates a deterministic risk scoring model to quantify potential academic misconduct.</p>
+
+  <h3>Risk Score Breakdown</h3>
+  <table class="risk-table">
+    <tr>
+      <th>Event</th>
+      <th>Penalty Points</th>
+      <th>Severity</th>
+    </tr>
+    <tr>
+      <td>USB Device Inserted</td>
+      <td>+40 pts</td>
+      <td>High</td>
+    </tr>
+    <tr>
+      <td>External File Opened</td>
+      <td>+30 pts</td>
+      <td>High</td>
+    </tr>
+    <tr>
+      <td>Excessive Window Switches (>5)</td>
+      <td>+20 pts</td>
+      <td>Medium</td>
+    </tr>
+    <tr>
+      <td>Paste Attempt Blocked</td>
+      <td>+10 pts</td>
+      <td>Low</td>
+    </tr>
+  </table>
+
+  <h3>Cryptographic Report Integrity</h3>
+  <p>When a session concludes, the IDE generates an HTML integrity report. To prevent tampering, the entire raw event
+    log is serialized and hashed using <code>SHA-256</code>. This hash is embedded at the bottom of the report.</p>
+  <p>If a student attempts to modify the HTML file to remove a logged event or alter the timestamps, the hash will
+    automatically invalidate when verified against the payload.</p>
+
+  <h2>Keyboard Shortcuts</h2>
+  <table class="risk-table">
+    <tr>
+      <th>Action</th>
+      <th>Shortcut</th>
+    </tr>
+    <tr>
+      <td>New File</td>
+      <td>Ctrl + N</td>
+    </tr>
+    <tr>
+      <td>Open File</td>
+      <td>Ctrl + O</td>
+    </tr>
+    <tr>
+      <td>Open Folder</td>
+      <td>Ctrl + Shift + O</td>
+    </tr>
+    <tr>
+      <td>Save</td>
+      <td>Ctrl + S</td>
+    </tr>
+    <tr>
+      <td>Save As</td>
+      <td>Ctrl + Shift + S</td>
+    </tr>
+    <tr>
+      <td>Undo</td>
+      <td>Ctrl + Z</td>
+    </tr>
+    <tr>
+      <td>Redo</td>
+      <td>Ctrl + Shift + Z</td>
+    </tr>
+    <tr>
+      <td>Select All</td>
+      <td>Ctrl + A</td>
+    </tr>
+    <tr>
+      <td>Compile &amp; Run</td>
+      <td>Ctrl + Enter</td>
+    </tr>
+    <tr>
+      <td>Zoom In</td>
+      <td>Ctrl + =</td>
+    </tr>
+    <tr>
+      <td>Zoom Out</td>
+      <td>Ctrl + -</td>
+    </tr>
+    <tr>
+      <td>Reset Zoom</td>
+      <td>Ctrl + 0</td>
+    </tr>
+    <tr>
+      <td>Toggle Fullscreen</td>
+      <td>F11</td>
+    </tr>
+    <tr>
+      <td>Toggle Dark Mode</td>
+      <td>Ctrl + Shift + D</td>
+    </tr>
+    <tr>
+      <td>Documentation</td>
+      <td>F1</td>
+    </tr>
+  </table>
+
+  <div
+    style="margin-top: 60px; text-align: right; font-size: 1em; font-weight: 500; color: var(--text); padding-bottom: 40px;">
+    With <span style="color: #ff3366;">❤️</span> and code,<br>
+    <div
+      style="font-family: 'Caveat', 'Brush Script MT', cursive; color: #d97706; font-size: 1.8em; line-height: 1; margin-top: 8px; transform: rotate(-2deg);">
+      Soumyadip</div>
+  </div>
+</body>
+
+</html>
