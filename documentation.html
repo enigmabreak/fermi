@@ -98,11 +98,18 @@
       click the "Run" button in the bottom left corner.</li>
     <li><strong>External Files:</strong> If you open a C file that was not handwritten in this session, the editor will
       flag it with a reddish tab border and log the event.</li>
+    <li><strong>Compilation Errors:</strong> The IDE uses an ultra-fast C compiler that parses code line-by-line. If
+      your code has a fatal syntax error (e.g., a missing semicolon), the compiler will immediately stop and report only
+      that single error. Fix it and re-run to see any subsequent errors!</li>
     <li><strong>Focus Tracking:</strong> Do not minimize the window or switch to other applications (like web browsers).
-      The IDE actively tracks focus loss.</li>
-    <li><strong>USB Lockdown:</strong> Do not insert USB drives during a session. Doing so will immediately lock the
-      screen until the device is removed, and the incident will be logged.</li>
+      The IDE actively tracks foreground application changes in real-time, accurately identifying the external
+      application accessed (e.g. Chrome, PowerShell).</li>
+    <li><strong>USB Lockdown:</strong> Do not insert USB drives during a session. Doing so will forcefully restore the
+      IDE to fullscreen and immediately lock the screen until the exact device is removed. The incident is rigorously
+      logged without duplicates.</li>
     <li><strong>Paste Restrictions:</strong> Pasting code is strictly prohibited to prevent plagiarism.</li>
+    <li><strong>Automatic Cleanup:</strong> To free up lab PC storage, student source code folders are automatically
+      deleted after 12 hours.</li>
   </ul>
 
   <h2>For Professors: Supermode (Admin Mode)</h2>
@@ -123,7 +130,8 @@
   <p>Fermi Studio operates a deterministic risk scoring model to quantify potential academic misconduct.</p>
 
   <h3>Risk Score Breakdown</h3>
-  <p>The system starts every session with a base <strong>Trust Score of 100</strong>. Penalty points are deducted for various violations. The score can drop below zero for severe or repeated infractions.</p>
+  <p>The system starts every session with a base <strong>Trust Score of 100</strong>. Penalty points are deducted for
+    various violations. The score can drop below zero for severe or repeated infractions.</p>
   <table class="risk-table">
     <tr>
       <th>Event</th>
@@ -163,14 +171,22 @@
   </table>
 
   <h3>Cryptographic Report Integrity</h3>
-  <p>When a session concludes, the IDE generates an HTML integrity report. To prevent tampering, the system employs a rigid cryptographic verification mechanism.</p>
+  <p>When a session concludes, the IDE generates an HTML integrity report. To prevent tampering, the system employs a
+    rigid cryptographic verification mechanism.</p>
   <p><strong>The Verification Process:</strong></p>
   <ul>
-    <li>Every background event (window switches, focus loss, coding time, external file access) is captured in a raw JSON payload throughout the session.</li>
-    <li>When the report is generated, this exact payload is serialized and hashed using the <strong>SHA-256 algorithm</strong>.</li>
-    <li>The resulting hexadecimal hash is embedded directly into the report, along with the raw payload itself (stored in a hidden <code>&lt;script&gt;</code> tag).</li>
+    <li>Every background event (window switches, focus loss, coding time, external file access) is captured in a raw
+      JSON payload throughout the session.</li>
+    <li>When the report is generated, this exact payload is serialized and hashed using the <strong>SHA-256
+        algorithm</strong>.</li>
+    <li>The resulting hexadecimal hash is embedded directly into the report, along with the raw payload itself (stored
+      in a hidden <code>&lt;script&gt;</code> tag).</li>
   </ul>
-  <p>If a student attempts to modify the HTML file to remove a logged event, alter timestamps, or change their risk score, the new hash of the modified payload will not match the embedded hash. The Admin Panel automatically re-calculates the hash upon loading the report and immediately flags any discrepancies in red as <strong>TAMPERED</strong>.</p>
+  <p>If a student attempts to modify the HTML file to remove a logged event, alter timestamps, or change their risk
+    score, the new hash of the modified payload will not match the embedded hash. The Admin Panel automatically
+    re-calculates the hash upon loading the report and immediately flags any discrepancies in red as
+    <strong>TAMPERED</strong>.
+  </p>
 
   <h2>Keyboard Shortcuts</h2>
   <table class="risk-table">
@@ -195,10 +211,6 @@
       <td>Ctrl + S</td>
     </tr>
     <tr>
-      <td>Save As</td>
-      <td>Ctrl + Shift + S</td>
-    </tr>
-    <tr>
       <td>Undo</td>
       <td>Ctrl + Z</td>
     </tr>
@@ -209,6 +221,10 @@
     <tr>
       <td>Select All</td>
       <td>Ctrl + A</td>
+    </tr>
+    <tr>
+      <td>Rename</td>
+      <td>F2</td>
     </tr>
     <tr>
       <td>Compile &amp; Run</td>
