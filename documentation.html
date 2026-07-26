@@ -58,6 +58,10 @@
       padding-left: 20px;
     }
 
+    ul li {
+      margin-bottom: 4px;
+    }
+
     code {
       background: rgba(128, 128, 128, 0.1);
       padding: 2px 6px;
@@ -83,6 +87,10 @@
       background: rgba(128, 128, 128, 0.05);
       color: var(--text);
     }
+
+    .risk-table td {
+      color: var(--text-muted);
+    }
   </style>
 </head>
 
@@ -93,45 +101,93 @@
   <h2>For Students: How to Use the Application</h2>
   <ul>
     <li><strong>Workspace Configuration:</strong> Upon launch, you must enter your 11-digit University Roll Number. This
-      initializes your secure session.</li>
-    <li><strong>Saving Work:</strong> Your C files are automatically saved to your secure workspace. To compile and run,
-      click the "Run" button in the bottom left corner.</li>
-    <li><strong>External Files:</strong> If you open a C file that was not handwritten in this session, the editor will
-      flag it with a reddish tab border and log the event.</li>
+      initializes your secure session and locks the IDE to fullscreen.</li>
+    <li><strong>Saving Work:</strong> Your C files are automatically saved to your secure workspace folder. To compile
+      and run, click the Run button or press <code>Ctrl+Enter</code>.</li>
     <li><strong>Compilation Errors:</strong> The IDE uses an ultra-fast C compiler that parses code line-by-line. If
-      your code has a fatal syntax error (e.g., a missing semicolon), the compiler will immediately stop and report only
-      that single error. Fix it and re-run to see any subsequent errors!</li>
-    <li><strong>Focus Tracking:</strong> Do not minimize the window or switch to other applications (like web browsers).
-      The IDE actively tracks foreground application changes in real-time, accurately identifying the external
-      application accessed (e.g. Chrome, PowerShell).</li>
+      your code has a fatal syntax error, the compiler will stop and report only that single error. Fix it and re-run to
+      see any subsequent errors.</li>
+    <li><strong>External Files:</strong> If you open a C file that was not created in this session, the editor will flag
+      it with a reddish tab border and log the event as a high-risk violation.</li>
+    <li><strong>Focus Tracking:</strong> Do not minimize the window or switch to other applications. The IDE actively
+      tracks foreground application changes in real-time, identifying the exact external application accessed.</li>
     <li><strong>USB Lockdown:</strong> Do not insert USB drives during a session. Doing so will forcefully restore the
       IDE to fullscreen and immediately lock the screen until the exact device is removed. The incident is rigorously
-      logged without duplicates.</li>
-    <li><strong>Paste Restrictions:</strong> Pasting code is strictly prohibited to prevent plagiarism.</li>
-    <li><strong>Automatic Cleanup:</strong> To free up lab PC storage, student source code folders are automatically
-      deleted after 12 hours.</li>
+      logged with timestamps and device name.</li>
+    <li><strong>Paste Restrictions:</strong> Pasting code is strictly prohibited. The first attempt shows a warning;
+      subsequent attempts are logged as violations.</li>
+    <li><strong>Close Attempts:</strong> Attempting to close the IDE during a session via the title bar or keyboard
+      shortcut will show a warning dialog instead of closing, and the attempt is logged.</li>
+    <li><strong>Automatic Workspace Cleanup:</strong> To free up lab PC storage, student source code folders are
+      automatically deleted 6 hours after they were first created. This runs silently at application startup.</li>
+  </ul>
+
+  <h2>For Students: Exporting Your Report</h2>
+  <ul>
+    <li>You may export your current Integrity Report mid-session via <strong>File &rarr; Export Integrity
+        Report</strong>.</li>
+    <li>Reports exported this way are permanently marked with a red <strong>"Incomplete Report (?)"</strong> banner at
+      the top. This informs the examiner that the session had not yet ended at the time of export and that further
+      activity may have occurred afterwards.</li>
+    <li>The final, official report is the one automatically generated when the application closes at the end of your
+      session. That report has no such banner and is what the examiner will use for evaluation. You do not need to
+      manually export it.</li>
   </ul>
 
   <h2>For Professors: Supermode (Admin Mode)</h2>
-  <p>To assist students or debug issues without triggering integrity violations, invigilators can use the built-in
+  <p>To assist students or review reports without triggering integrity violations, invigilators can use the built-in
     <strong>Supermode</strong>.
   </p>
   <ul>
     <li><strong>Activation:</strong> Type <code>admin</code> into the Roll Number field during startup.</li>
-    <li><strong>Capabilities:</strong> Supermode automatically bypasses all paste restrictions and disables
-      window-switch monitoring, allowing you to freely copy/paste code and navigate the OS.</li>
-    <li><strong>Admin Panel:</strong> Entering Supermode automatically opens the Admin Panel, where you can view,
-      manage, and cryptographically verify all submitted student Integrity Reports.</li>
-    <li><strong>Stealth:</strong> To maintain clean logs, Supermode completely disables Integrity Report generation for
-      the session.</li>
+    <li><strong>Capabilities:</strong> Supermode automatically bypasses all paste restrictions, disables window-switch
+      monitoring, exits fullscreen, and suppresses Integrity Report generation for the session.</li>
+    <li><strong>Admin Panel:</strong> Entering Supermode automatically opens the Admin Panel, where you can view and
+      browse all saved student Integrity Reports. The panel can also be opened at any time via
+      <strong>File &rarr; Reports</strong>.
+    </li>
+    <li><strong>Stealth:</strong> No events are recorded for the admin session, keeping logs clean.</li>
   </ul>
 
-  <h2>For Professors: Scoring & Integrity Systems</h2>
-  <p>Fermi Studio operates a deterministic risk scoring model to quantify potential academic misconduct.</p>
+  <h2>For Professors: Admin Panel &mdash; Identifying Incomplete Reports</h2>
+  <p>The Admin Panel lists all reports by student roll number and the timestamp they were generated. When reviewing a
+    report, pay attention to the following:</p>
+  <ul>
+    <li>A report marked <strong>"Incomplete Report (?)"</strong> with a red banner at the top was manually exported by
+      the student while their session was still active. It does not represent the full picture of their session.</li>
+    <li>Always prefer the final auto-generated report for evaluation. It is created automatically when the student
+      closes the application and captures the complete session without any banner.</li>
+    <li>Mid-session exports may be used as supplementary evidence but should never be treated as the final record.</li>
+  </ul>
+
+  <h2>For Professors: Integrity Report Contents</h2>
+  <p>Each Integrity Report is a self-contained HTML document containing the following information:</p>
+  <ul>
+    <li><strong>Session Start and Report Time</strong> — Timestamps in 12-hour AM/PM format.</li>
+    <li><strong>Total Activity Period</strong> — The elapsed time from session start to when the report was
+      generated.</li>
+    <li><strong>Focus Lost Duration</strong> — Total time the student had the IDE out of focus.</li>
+    <li><strong>Window Switches, Paste Attempts, USB Insertions, External Files</strong> — Counts of each violation
+      type.</li>
+    <li><strong>USB Active Time</strong> — Cumulative time any USB device was connected during the session.</li>
+    <li><strong>Risk Score and Risk Level</strong> — A calculated score (CLEAN, MEDIUM, or HIGH) summarizing the
+      severity of the session.</li>
+    <li><strong>Time on Individual Programs</strong> — A table showing coding time and execution time per
+      <code>.c</code> file worked on.
+    </li>
+    <li><strong>Detailed Event Tables</strong> — Timestamped records of USB events, external files opened, window
+      switches, paste attempts, and session-close events.</li>
+  </ul>
+
+  <p>All reports follow the unified naming format:</p>
+  <p><code>IR_&lt;roll&gt;_&lt;yyyy-mm-dd&gt;_&lt;hh-mm-ss&gt;&lt;AM/PM&gt;.html</code></p>
+
+  <h2>For Professors: Scoring &amp; Risk Levels</h2>
+  <p>Fermi Studio operates a deterministic risk scoring model. The system starts every session with a base
+    <strong>Trust Score of 100</strong>. Penalty points are deducted for various violations. The score can drop below
+    zero for severe or repeated infractions.</p>
 
   <h3>Risk Score Breakdown</h3>
-  <p>The system starts every session with a base <strong>Trust Score of 100</strong>. Penalty points are deducted for
-    various violations. The score can drop below zero for severe or repeated infractions.</p>
   <table class="risk-table">
     <tr>
       <th>Event</th>
@@ -144,49 +200,64 @@
       <td>Critical</td>
     </tr>
     <tr>
-      <td>App Close Attempt</td>
-      <td>0 pts (1st warning), -15 pts (subsequent)</td>
+      <td>External File Opened</td>
+      <td>-30 pts per event</td>
       <td>High</td>
     </tr>
     <tr>
-      <td>External File Opened</td>
-      <td>-20 pts per event</td>
-      <td>High</td>
+      <td>Window Switches &gt; 5</td>
+      <td>-20 pts</td>
+      <td>Medium–High</td>
+    </tr>
+    <tr>
+      <td>Window Switches 2–5</td>
+      <td>-10 pts</td>
+      <td>Medium</td>
     </tr>
     <tr>
       <td>Paste Attempt Blocked</td>
-      <td>0 pts (1st warning), -15 pts (subsequent)</td>
+      <td>-10 pts</td>
       <td>Medium</td>
     </tr>
     <tr>
-      <td>Window Switches</td>
-      <td>0 pts (1st warning), -5 pts (2nd), -15 pts (subsequent)</td>
-      <td>Medium</td>
-    </tr>
-    <tr>
-      <td>Focus Lost Duration</td>
-      <td>-5 pts per 30 seconds lost</td>
-      <td>Low / Medium</td>
+      <td>App Close Attempt</td>
+      <td>-5 pts</td>
+      <td>Low</td>
     </tr>
   </table>
 
-  <h3>Cryptographic Report Integrity</h3>
-  <p>When a session concludes, the IDE generates an HTML integrity report. To prevent tampering, the system employs a
-    rigid cryptographic verification mechanism.</p>
-  <p><strong>The Verification Process:</strong></p>
+  <h3>Risk Level Thresholds</h3>
+  <table class="risk-table">
+    <tr>
+      <th>Penalty Score</th>
+      <th>Risk Level</th>
+    </tr>
+    <tr>
+      <td>0 to −9</td>
+      <td><span style="background:#dcfce7;color:#15803d;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:600;">CLEAN</span></td>
+    </tr>
+    <tr>
+      <td>−10 to −39</td>
+      <td><span style="background:#fef3c7;color:#92400e;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:600;">MEDIUM</span></td>
+    </tr>
+    <tr>
+      <td>−40 to −99</td>
+      <td><span style="background:#fee2e2;color:#b91c1c;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:600;">HIGH</span></td>
+    </tr>
+    <tr>
+      <td>−100 and below</td>
+      <td><span style="background:#4a0000;color:#fca5a5;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:600;">CRITICAL</span></td>
+    </tr>
+  </table>
+
+  <h2>Automatic Data Management</h2>
+  <p>Fermi Studio automatically manages stored data at every startup to keep lab PCs clean:</p>
   <ul>
-    <li>Every background event (window switches, focus loss, coding time, external file access) is captured in a raw
-      JSON payload throughout the session.</li>
-    <li>When the report is generated, this exact payload is serialized and hashed using the <strong>SHA-256
-        algorithm</strong>.</li>
-    <li>The resulting hexadecimal hash is embedded directly into the report, along with the raw payload itself (stored
-      in a hidden <code>&lt;script&gt;</code> tag).</li>
+    <li><strong>Workspace Folders:</strong> Student source code folders older than 6 hours from their creation time are
+      permanently deleted at startup.</li>
+    <li><strong>Integrity Reports:</strong> Reports older than 30 days from their creation date are permanently deleted
+      at startup.</li>
   </ul>
-  <p>If a student attempts to modify the HTML file to remove a logged event, alter timestamps, or change their risk
-    score, the new hash of the modified payload will not match the embedded hash. The Admin Panel automatically
-    re-calculates the hash upon loading the report and immediately flags any discrepancies in red as
-    <strong>TAMPERED</strong>.
-  </p>
 
   <h2>Keyboard Shortcuts</h2>
   <table class="risk-table">
