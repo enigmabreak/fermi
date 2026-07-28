@@ -1,0 +1,8 @@
+version: 7.7.9
+files:
+  - url: Fermi-Studio-Setup-7.7.9.exe
+    sha512: kUNTJQr2qYRuE2NYsBBxtPvr/dnf8oJYV+HSOKTrumRvairBJ3xiQ53OdhW7DjO4ultqAcY/SwpHqig003hb8A==
+    size: 88544792
+path: Fermi-Studio-Setup-7.7.9.exe
+sha512: kUNTJQr2qYRuE2NYsBBxtPvr/dnf8oJYV+HSOKTrumRvairBJ3xiQ53OdhW7DjO4ultqAcY/SwpHqig003hb8A==
+releaseDate: '2026-07-28T20:20:50.850Z'
