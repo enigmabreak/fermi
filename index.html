@@ -47,28 +47,18 @@
    Fermi Studio is designed for academic environments.
 
    <hr>
-   Copyright (c) Versitylab
-   <hr>
+   With <3 Versitylab <hr>
 
-   <script>
-      fetch('https://api.github.com/repos/enigmabreak/fermi/releases/latest')
-         .then(response => response.json())
-         .then(data => {
-            if (data.tag_name) {
-               document.getElementById('latest-version').textContent = data.tag_name;
-            }
-         })
-         .catch(err => console.error('Error fetching release version:', err));
-   </script>
+      <script>
+         fetch('https://api.github.com/repos/enigmabreak/fermi/releases/latest')
+            .then(response => response.json())
+            .then(data => {
+               if (data.tag_name) {
+                  document.getElementById('latest-version').textContent = data.tag_name;
+               }
+            })
+            .catch(err => console.error('Error fetching release version:', err));
+      </script>
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
