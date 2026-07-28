@@ -1,8 +1,0 @@
-version: 7.8.0
-files:
-  - url: Fermi-Studio-Setup-7.8.0.exe
-    sha512: IxEvT0/7eYJ1U8KspXowZEaQFB3WKqVjl0+GhvlraOR6mKN3kqcudWArph32NGN9w5SMx6ae2aoNA3h/stpYJg==
-    size: 88440139
-path: Fermi-Studio-Setup-7.8.0.exe
-sha512: IxEvT0/7eYJ1U8KspXowZEaQFB3WKqVjl0+GhvlraOR6mKN3kqcudWArph32NGN9w5SMx6ae2aoNA3h/stpYJg==
-releaseDate: '2026-07-28T20:31:25.941Z'
