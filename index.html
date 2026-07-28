@@ -27,7 +27,7 @@
 
          <tr>
             <td>Windows</td>
-            <td>Latest</td>
+            <td id="latest-version">Latest</td>
             <td><a href="https://github.com/enigmabreak/fermi/releases/latest">Download Installer</a></td>
 
    </TABLE>
@@ -50,6 +50,16 @@
    Copyright (c) Versitylab
    <hr>
 
+   <script>
+      fetch('https://api.github.com/repos/enigmabreak/fermi/releases/latest')
+         .then(response => response.json())
+         .then(data => {
+            if (data.tag_name) {
+               document.getElementById('latest-version').textContent = data.tag_name;
+            }
+         })
+         .catch(err => console.error('Error fetching release version:', err));
+   </script>
 </body>
 
 </html>
