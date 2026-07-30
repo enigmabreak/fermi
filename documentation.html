@@ -95,7 +95,25 @@
 </head>
 
 <body>
+  <div id="fermi-warning-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); backdrop-filter: blur(10px); z-index:9999; align-items:center; justify-content:center;">
+    <div style="background:var(--bg); border:1px solid var(--border); border-radius:12px; padding:30px; width:400px; max-width:90%; color:var(--text); box-shadow: 0 20px 40px rgba(0,0,0,0.2); text-align:center;">
+      <h1 style="margin:0 0 10px 0; font-size:20px; font-weight:800; letter-spacing:1px; color:var(--text); font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">EXTERNAL LINK WARNING</h1>
+      <p style="font-size:13px; color:var(--text-muted); margin-bottom:20px; line-height:1.5; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">Opening this link will open a new browser window. This will cause the IDE to lose focus and trigger a <strong>window switch violation</strong> since you are in a secure session.</p>
+      <div style="display:flex; justify-content:center; gap:12px; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+        <button onclick="document.getElementById('fermi-warning-modal').style.display='none'" style="padding:10px 16px; border-radius:6px; border:1px solid var(--border); background:var(--bg); color:var(--text); cursor:pointer; font-size:13px; font-weight:bold;">Cancel</button>
+        <button onclick="document.getElementById('fermi-warning-modal').style.display='none'; window.open('https://enigmabreak.github.io/fermi', '_blank');" style="padding:10px 16px; border-radius:6px; border:none; background:#dc2626; color:#fff; cursor:pointer; font-weight:bold; font-size:13px;">Proceed</button>
+      </div>
+    </div>
+  </div>
+
   <h1>Fermi Studio Documentation</h1>
+  <div style="margin-top: 10px; margin-bottom: 25px; display: flex; align-items: center; gap: 15px; font-size: 14px; color: var(--text-muted);">
+    More details at 
+    <a href="#" onclick="var e=event; e.preventDefault(); if (window.parent && window.parent.isAdminMode === false) { document.getElementById('fermi-warning-modal').style.display = 'flex'; } else { window.open('https://enigmabreak.github.io/fermi', '_blank'); }" style="display: inline-flex; align-items: center; padding: 6px 16px; font-size: 14px; color: var(--bg); background: var(--text); text-decoration: none; border-radius: 20px; font-weight: bold; transition: transform 0.1s, opacity 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" onmouseover="this.style.transform='scale(1.02)'; this.style.opacity='0.9'" onmouseout="this.style.transform='scale(1)'; this.style.opacity='1'">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+      enigmabreak.github.io/fermi
+    </a>
+  </div>
   <p>Welcome to Fermi Studio, the secure coding environment designed for academic integrity.</p>
 
   <h2>For Students: How to Use the Application</h2>
@@ -134,6 +152,16 @@
       manually export it.</li>
   </ul>
 
+  <h2>For Students: Practice Mode</h2>
+  <p>If you want to practice coding in an unrestricted environment without triggering security violations, you can use <strong>Practice Mode</strong>.</p>
+  <ul>
+    <li><strong>Activation:</strong> Type <code>practice</code> into the Roll Number field during startup.</li>
+    <li><strong>Capabilities:</strong> Practice Mode operates similarly to Admin Mode—it allows you to freely switch windows, copy and paste, and browse the entire file system without logging violations or locking you in fullscreen.</li>
+    <li><strong>Environment:</strong> The interface adopts a distinct deep green theme, and the session clock remains active so you can track your practice time.</li>
+    <li><strong>USB Lockdown:</strong> Unlike Admin mode, inserting a USB drive in Practice Mode will still trigger the security lockdown.</li>
+    <li><strong>Automatic Cleanup:</strong> To ensure lab computers don't run out of storage, any files saved in your practice workspace folder that are older than 3 hours are automatically wiped upon starting a new Practice Mode session.</li>
+  </ul>
+
   <h2>For Professors: Supermode (Admin Mode)</h2>
   <p>To assist students or review reports without triggering integrity violations, invigilators can use the built-in
     <strong>Supermode</strong>.
@@ -141,7 +169,7 @@
   <ul>
     <li><strong>Activation:</strong> Type <code>admin</code> into the Roll Number field during startup.</li>
     <li><strong>Capabilities:</strong> Supermode automatically bypasses all paste restrictions, disables window-switch
-      monitoring, exits fullscreen, and suppresses Integrity Report generation for the session.</li>
+      monitoring, completely ignores USB insertions, exits fullscreen, disables automatic workspace cleanup, and suppresses Integrity Report generation for the session.</li>
     <li><strong>Admin Panel:</strong> Entering Supermode automatically opens the Admin Panel, where you can view and
       browse all saved student Integrity Reports. The panel can also be opened at any time via
       <strong>File &rarr; Reports</strong>.
