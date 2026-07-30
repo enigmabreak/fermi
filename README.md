@@ -1,4 +1,3 @@
-Install the latest **`.exe`** file from Releases.
+Install the latest **`.exe`** file from [Releases](https://github.com/enigmabreak/fermi/releases/latest).
 
-> [!NOTE]
-> **Website:** <https://enigmabreak.github.io/fermi/>
+**Website:** <https://enigmabreak.github.io/fermi/>
