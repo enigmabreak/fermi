@@ -28,7 +28,7 @@
          <tr>
             <td>Windows</td>
             <td id="latest-version">Latest</td>
-            <td><a href="https://github.com/enigmabreak/fermi/releases/latest">Download Installer</a></td>
+            <td><a id="download-link" href="https://github.com/enigmabreak/fermi/releases/latest">Download Installer</a></td>
 
    </TABLE>
    <br>
@@ -40,6 +40,7 @@
    <UL>
       <li><a href="mailto:soumyadip.tech@gmail.com">soumyadip.tech@gmail.com</a></li>
       <li><a href="https://wa.me/918100391137?text=hi">versity</a></li>
+      <li><a href="https://github.com/enigmabreak/fermi/releases">https://github.com/enigmabreak/fermi/releases</a></li>
    </UL>
 
    <h2>License</h2>
@@ -55,6 +56,10 @@
             .then(data => {
                if (data.tag_name) {
                   document.getElementById('latest-version').textContent = data.tag_name;
+               }
+               const exeAsset = data.assets && data.assets.find(asset => asset.name.endsWith('.exe'));
+               if (exeAsset) {
+                  document.getElementById('download-link').href = exeAsset.browser_download_url;
                }
             })
             .catch(err => console.error('Error fetching release version:', err));
