@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Fermi Studio Documentation</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
@@ -117,12 +118,39 @@
       </div>
     </div>
   </div>
+
   <h1>Fermi Studio Documentation</h1>
+  <div
+    style="margin-top: 10px; margin-bottom: 25px; display: flex; align-items: center; gap: 15px; font-size: 14px; color: var(--text-muted);">
+    More details at
+    <a href="#"
+      onclick="var e=event; e.preventDefault(); if (window.parent && window.parent.isAdminMode === false) { document.getElementById('fermi-warning-modal').style.display = 'flex'; } else { window.open('https://enigmabreak.github.io/fermi', '_blank'); }"
+      style="display: inline-flex; align-items: center; padding: 6px 16px; font-size: 14px; color: var(--bg); background: var(--text); text-decoration: none; border-radius: 20px; font-weight: bold; transition: transform 0.1s, opacity 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.1);"
+      onmouseover="this.style.transform='scale(1.02)'; this.style.opacity='0.9'"
+      onmouseout="this.style.transform='scale(1)'; this.style.opacity='1'">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;">
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+        <polyline points="15 3 21 3 21 9"></polyline>
+        <line x1="10" y1="14" x2="21" y2="3"></line>
+      </svg>
+      enigmabreak.github.io/fermi
+    </a>
+  </div>
   <p>Welcome to Fermi Studio, the secure coding environment designed for academic integrity.</p>
 
   <div style="margin-top: 50px; margin-bottom: -10px; padding: 10px 20px; background: rgba(128, 128, 128, 0.12); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(128, 128, 128, 0.2); border-radius: 10px; font-weight: 600; font-size: 15px; display: inline-block; color: var(--text); letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 8px 24px rgba(0, 0, 0, 0.08);">
     Student Guide
   </div>
+  
+  <h2>Pre-Session Preparation</h2>
+  <p>To ensure a smooth experience and prevent accidental integrity violations, please configure your system before starting your session:</p>
+  <ul>
+    <li><strong>Turn Off Notifications:</strong> Disable system notifications (like Focus Assist or Do Not Disturb). Popups from other applications can cause the IDE to lose focus, which will be logged as a window switch violation.</li>
+    <li><strong>Disable Sleep Mode & Hibernation:</strong> Ensure your computer is set to never sleep or turn off the screen during inactivity. A screen lock will trigger a focus loss detection.</li>
+    <li><strong>Add Windows Defender Exclusion:</strong> Mark Fermi Studio as safe by adding an exclusion for the Project Folder in Windows Security. This prevents the antivirus from blocking or deleting your compiled programs.</li>
+    <li><strong>Turn Off Smart App Control:</strong> Disable Smart App Control in Windows settings so your compiled programs can execute smoothly without being blocked by the OS.</li>
+  </ul>
   <h2>How to Use the Application</h2>
   <ul>
     <li><strong>Workspace Configuration:</strong> Upon launch, you must enter your 11-digit University Roll Number. This
